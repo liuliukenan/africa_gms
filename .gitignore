@@ -7,9 +7,6 @@ dist/
 *.tsbuildinfo
 
 # Local environment files
-.env
-.env.*
-!.env.example
 
 # IDE and editor settings
 .idea/
