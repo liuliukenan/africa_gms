@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="icon" href="/favicon.ico" />
+  <script>
+    (function () {
+      var metaEl = document.createElement('meta');
+      metaEl.setAttribute('name', 'viewport');
+      var responsive = true;
+      try {
+        responsive = JSON.parse(localStorage.getItem('theme') || '{}').responsive;
+      } catch (e) {
+        console.error(e);
+      }
+      if (responsive === false) {
+        metaEl.setAttribute('content', 'width=1200, initial-scale=1.0');
+      } else {
+        metaEl.setAttribute('content', 'width=device-width, initial-scale=1.0');
+        document.documentElement.style.overflowX = 'hidden';
+      }
+      document.head.appendChild(metaEl);
+      if (navigator.userAgent.includes('WebKit')) {
+        document.documentElement.classList.add('is-webkit');
+      }
+    })();
+  </script>
+  <title>GMS</title>
+  <style>
+    .ele-admin-loading {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      grid-gap: 8px;
+      grid-template-rows: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr);
+      transform: rotate(45deg);
+      animation: loadingRotate 1.2s infinite linear;
+      position: fixed;
+      top: calc(50% - 14px);
+      left: calc(50% - 14px);
+    }
+
+    .ele-admin-loading>i {
+      border-radius: 50%;
+      background: #1677ff;
+    }
+
+    .ele-admin-loading>i:nth-child(2) {
+      opacity: 0.7;
+    }
+
+    .ele-admin-loading>i:nth-child(3) {
+      opacity: 0.5;
+    }
+
+    .ele-admin-loading>i:nth-child(4) {
+      opacity: 0.3;
+    }
+
+    @keyframes loadingRotate {
+      to {
+        transform: rotate(405deg);
+      }
+    }
+
+    .lang-box {
+      position: absolute;
+      top: -5px;
+      right: 100px;
+      width: 300px;
+      z-index: 9999999999;
+      height: 40px;
+      /* display: flex;
+      justify-content: space-between; */
+    }
+
+    .translate_switch {
+      position: absolute;
+      right: 241px;
+      top: 3px;
+      z-index: 9999999999;
+
+    }
+    @media screen and (max-width: 678px) {
+      .translate_switch {
+        right: 120px;
+      }
+    }
+
+    .translate_switch a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .translate_switch li {
+      display: inline;
+      padding-right: 4px;
+    }
+
+    .translate_switch .english:after {
+      content: 'English';
+    }
+
+    .translate_switch .chinese:after {
+      content: '中文'
+    }
+
+    .translate_switch .thai:after {
+      content: 'ภาษาไทย'
+    }
+
+    /* 点击高亮样式 */
+    .translate_switch a.active {
+      color: #1677ff;
+      font-weight: bold;
+      background-color: #e6f7ff;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="ele-admin-loading">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+  </div>
+
+  <!-- <ul class="translate_switch">
+    <li><a class="thai ignore" href="javascript:handleClick('thai');"></a></li>|
+    <li><a class="english ignore" href="javascript:handleClick('english');"></a></li>|
+    <li><a class="chinese ignore" href="javascript:handleClick('chinese');"></a></li>
+  </ul> -->
+  <script type="module" src="/src/main.ts"></script>
+  <!-- <script src="https://cdn.staticfile.net/translate.js/3.8.0/translate.js"></script> -->
+  <script>
+    // // 更新活跃语言按钮高亮
+    // function updateActiveLanguage(lang) {
+    //   // 移除所有按钮的活跃状态
+    //   document.querySelectorAll('.translate_switch a').forEach(btn => {
+    //     btn.classList.remove('active');
+    //   });
+    //   // 为当前选中的按钮添加活跃状态
+    //   const activeBtn = document.querySelector(`.translate_switch .${lang}`);
+    //   if (activeBtn) {
+    //     activeBtn.classList.add('active');
+    //   }
+    // }
+
+    // // 处理点击事件
+    // window.handleClick = function (lang) {
+    //   // 翻译库需要的正确语言代码映射
+    //   const langMap = {
+    //     'thai': 'thai',
+    //     'english': 'english',
+    //     'chinese': 'chinese_simplified'
+    //   };
+      
+    //   // 调用翻译库切换语言
+    //   translate.changeLanguage(langMap[lang] || lang);
+    //   // 更新高亮样式
+    //   updateActiveLanguage(lang);
+    // }
+    
+    // // 初始化时设置默认语言高亮
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   // 获取当前语言并正确映射到CSS类名
+    //   console.log('当前语言', translate.language.getCurrent());
+    //   let ll = translate.language.getCurrent();
+    //   // 反向映射：从translation.js的语言代码到我们的CSS类名
+    //   const reverseLangMap = {
+    //     'thai': 'thai',
+    //     'english': 'english',
+    //     'chinese_simplified': 'chinese'
+    //   };
+    //   // 使用映射后的CSS类名
+    //   updateActiveLanguage(reverseLangMap[ll] || 'chinese');
+    // });
+
+    // window.initTranslate = function () {
+    //   // translate.language.setLocal('chinese_simplified'); // 设置本地语种
+    //   translate.language.setUrlParamControl(); // 支持 URL 参数控制语种
+    //   translate.selectLanguageTag.languages = 'chinese_simplified,english,thai'; // 支持的语种
+    //   // translate.language.setLocal('thai');
+    //   translate.language.setDefaultTo('thai');
+    //   translate.setAutoDiscriminateLocalLanguage();    //设置用户第一次用时，自动识别其所在国家的语种进行切换
+    //   translate.listener.start(); // 开启页面变化监控
+    //   translate.service.use('client.edge');
+    //   translate.listener.start();//开启页面元素动态监控，js改变的内容也会被翻译
+    //   translate.execute(); // 执行初始化（此时 #translate 已存在）
+    // };
+  
+  </script>
+</body>
+
+</html>
